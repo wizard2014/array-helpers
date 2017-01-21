@@ -6,11 +6,26 @@ use ArrayAccess;
 
 class Arr
 {
+    /**
+     * Check if iterateable
+     *
+     * @param array|ArrayAccess $value
+     *
+     * @return bool
+     */
     public static function accessible($value)
     {
         return is_array($value) || $value instanceof ArrayAccess;
     }
 
+    /**
+     * Check if key exists
+     *
+     * @param array|ArrayAccess $array
+     * @param string            $key
+     *
+     * @return bool
+     */
     public static function exists($array, $key)
     {
         if ($array instanceof ArrayAccess) {
@@ -20,6 +35,15 @@ class Arr
         return array_key_exists($key, $array);
     }
 
+    /**
+     * Get array item
+     *
+     * @param array|ArrayAccess $array
+     * @param string            $key
+     * @param null $default
+     *
+     * @return null|string|int
+     */
     public static function get($array, $key, $default = null)
     {
         if (!static::accessible($array)) {
@@ -45,6 +69,15 @@ class Arr
         return $array;
     }
 
+    /**
+     * Get first array item
+     *
+     * @param array|ArrayAccess $array
+     * @param callable|null     $callback
+     * @param null              $default
+     *
+     * @return mixed|null
+     */
     public static function first($array, callable $callback = null, $default = null)
     {
         if (null === $callback) {
@@ -64,6 +97,15 @@ class Arr
         return $default;
     }
 
+    /**
+     * Get last array item
+     *
+     * @param array|ArrayAccess $array
+     * @param callable|null     $callback
+     * @param null              $default
+     *
+     * @return mixed|null
+     */
     public static function last($array, callable $callback = null, $default = null)
     {
         if (null === $callback) {
