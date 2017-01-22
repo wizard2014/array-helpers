@@ -118,4 +118,56 @@ class Arr
 
         return static::first(array_reverse($array, true), $callback, $default);
     }
+
+    /**
+     * Check if array has key or keys
+     *
+     * @param array|ArrayAccess $array
+     * @param string|array      $key
+     *
+     * @return bool
+     */
+    public static function has($array, $key)
+    {
+        if (null === $key) {
+            return false;
+        }
+
+        $keys = (array)$key;
+
+        if (empty($keys)) {
+            return false;
+        }
+
+        foreach ($keys as $key) {
+            $subKey = $array;
+
+            if (static::exists($array, $key)) {
+                continue;
+            }
+
+            foreach (explode('.', $key) as $segment) {
+                if (static::accessible($subKey) && static::exists($subKey, $segment)) {
+                    $subKey = $subKey[$segment];
+                } else {
+                    return false;
+                }
+            }
+        }
+
+        return true;
+    }
+
+    /**
+     * Filters elements of an array using a callback function
+     *
+     * @param array|ArrayAccess $array
+     * @param callable|null     $callback
+     *
+     * @return array
+     */
+    public static function where($array, callable $callback = null)
+    {
+        return array_filter($array, $callback, ARRAY_FILTER_USE_BOTH);
+    }
 }

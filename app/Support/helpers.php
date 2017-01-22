@@ -13,3 +13,11 @@ function array_first($array, callable $callback = null, $default = null) {
 function array_last($array, callable $callback = null, $default = null) {
     return Arr::last($array, $callback, $default);
 }
+
+function array_has($array, $key) {
+    return Arr::has($array, $key);
+}
+
+function array_where($array, callable $callback = null) {
+    return Arr::where($array, $callback);
+}
