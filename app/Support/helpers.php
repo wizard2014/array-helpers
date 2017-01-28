@@ -21,3 +21,11 @@ function array_has($array, $key) {
 function array_where($array, callable $callback = null) {
     return Arr::where($array, $callback);
 }
+
+function array_only($array, $key) {
+    return Arr::only($array, $key);
+}
+
+function array_forget(&$array, $keys) {
+    return Arr::forget($array, $keys);
+}

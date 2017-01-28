@@ -6,7 +6,8 @@ Use:
   - array_last
   - array_has
   - array_where
-  - ...
+  - array_only
+  - array_forget
 
 You can also:
   - Arr::get
@@ -14,3 +15,5 @@ You can also:
   - Arr::last
   - Arr::has
   - Arr::where
+  - Arr::only
+  - Arr::forget

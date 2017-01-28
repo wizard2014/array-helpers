@@ -170,4 +170,53 @@ class Arr
     {
         return array_filter($array, $callback, ARRAY_FILTER_USE_BOTH);
     }
+
+    /**
+     * Return array based on specific keys
+     *
+     * @param array|ArrayAccess $array
+     * @param string|array      $key
+     *
+     * @return array
+     */
+    public static function only($array, $key)
+    {
+        return array_intersect_key($array, array_flip((array)$key));
+    }
+
+    /**
+     * Remove array items based on specific keys
+     * 
+     * @param $array
+     * @param $keys
+     */
+    public static function forget(&$array, $keys)
+    {
+        $origin = &$array;
+
+        $keys = (array)$keys;
+
+        foreach ($keys as $key) {
+            if (static::exists($array, $key)) {
+                unset($array[$key]);
+                continue;
+            }
+
+            $parts = explode('.', $key);
+
+            $array = &$origin;
+
+            while (count($parts) > 1) {
+                $part = array_shift($parts);
+
+                if (static::accessible($array) && static::exists($array, $part)) {
+                    $array = &$array[$part];
+                } else {
+                    continue 2;
+                }
+            }
+
+            unset($array[array_shift($parts)]);
+        }
+    }
 }
